@@ -1,5 +1,5 @@
 const express = require('express');
-const app = express;
+const app = express();
 app.get('/', async (req, res) => {  
         const movies = await Movie.find().sort({ createdAt: -1 });
         res.render('movies/index', { movies });
@@ -29,7 +29,6 @@ app.get('/:id/edit', async (req, res) => {
 app.put('/:id', async (req, res) => {
         const movie = await Movie.findById(req.params.id);
         delete req.body.title;
-    
         await movie.save();
         res.redirect(`/movies/${movie._id}`);
 });
